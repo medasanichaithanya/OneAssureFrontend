@@ -7,8 +7,6 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import 'bootstrap/dist/css/bootstrap.css';
 
-
-
 function App() {
   const [adultCount, setAdultCount] = useState(0);
   const [adultAges, setAdultAges] = useState(['', '', '']);
@@ -60,7 +58,6 @@ function App() {
     setCover(parseInt(e.target.value))
   };
 
-  // Define the data you want to pass as query parameters
   const data = {
     cover : cover,
     tier : cityTier,
@@ -73,7 +70,7 @@ function App() {
   const handleSubmit = (event) => {
     event.preventDefault()
     console.log("inside the submit",data)
-     axios.get('http://127.0.0.1:5000/fetch-premium',
+     axios.get('https://onse-assure-backend-uoiz.vercel.app/fetch-premium',
     {
       params: data,
     })
@@ -96,32 +93,32 @@ function App() {
 
   const handleToClose = () => {
     setOpen(false);
-};
+  };
 
-const generateLabels = (value) => {
-  const labels = [];
-  const parts = value.split(',');
+  const generateLabels = (value) => {
+    const labels = [];
+    const parts = value.split(',');
 
-  for (const part of parts) {
-    const [count, type] = part.split('');
-    console.log(type)
+    for (const part of parts) {
+      const [count, type] = part.split('');
+      console.log(type)
 
-    for (let i = 1; i <= count; i++) {
-        if (type === 'a'){
-           const type = "Adult "
-             labels.push(`${type}${i}`);
-        }
-        else {
-            const type = "Children "
-             labels.push(`${type}${i}`);
-            
-        }
-     
+      for (let i = 1; i <= count; i++) {
+          if (type === 'a'){
+            const type = "Adult "
+              labels.push(`${type}${i}`);
+          }
+          else {
+              const type = "Children "
+              labels.push(`${type}${i}`);
+              
+          }
+      
+      }
     }
-  }
 
-  return labels;
-}
+    return labels;
+  }
 
   return (
     <>
@@ -150,8 +147,6 @@ const generateLabels = (value) => {
                     placeholder={`Enter Age of Adult ${index + 1}`}
                     required
                   />
-
-
               </>  ))):null
             }
             <p>Select the numbers of child in your family:</p>
@@ -162,7 +157,6 @@ const generateLabels = (value) => {
               <option value="3">3</option>
               <option value="4">4</option>
             </select>
-            
             { childCount ? (
               (childAges.map((values, indexs) => (
                 <>
