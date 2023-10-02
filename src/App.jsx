@@ -83,7 +83,7 @@ function App() {
         setFloaterDiscount(data.floaterDiscount)
         setDiscountRate(data.discountRate)
         setTotal(data.total)
-        // setSubmit(true)
+        setSubmit(true)
         const combination = generateLabels( adultCount + 'a,' + childCount + 'c')
         setCombination(combination)
       }  
