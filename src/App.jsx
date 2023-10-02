@@ -21,7 +21,7 @@ function App() {
   const [discountRate, setDiscountRate] = useState([]);
   const [total, setTotal] = useState(0);
   const [combination, setCombination] = useState([]);
-  const [submit,setSubmit] = useState(true);
+  const [submit,setSubmit] = useState(false);
 
   const handleAdultCount = (e) => {
     const adultValue = parseInt(e.target.value, 10);
@@ -69,8 +69,8 @@ function App() {
   };
 
   const handleSubmit = (event) => {
+    setOpen(true);
     event.preventDefault()
-    setSubmit(false);
      axios.get('https://onse-assure-backend-uoiz.vercel.app/fetch-premium',
     //  axios.get('http://127.0.0.1:5000/fetch-premium',
     {
@@ -83,7 +83,7 @@ function App() {
         setFloaterDiscount(data.floaterDiscount)
         setDiscountRate(data.discountRate)
         setTotal(data.total)
-        setOpen(true);
+        // setSubmit(true)
         const combination = generateLabels( adultCount + 'a,' + childCount + 'c')
         setCombination(combination)
       }  
@@ -196,11 +196,7 @@ function App() {
               <option value="17500000">7500000</option>
             </select>
             <div className='text-center'>
-              {submit ? ( <button type="submit" class="btn btn-primary btn-lg mt-3" >Checkout</button>)
-              :(<button class="btn btn-primary btn-lg mt-3" type="button" disabled>
-                  <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>&nbsp;&nbsp;
-                  <span class="sr-only">Processing...</span>
-                </button>)}
+            <button type="submit" className="btn btn-primary btn-lg mt-3" >Checkout</button>
             </div>
         </form> 
       </div>
@@ -208,40 +204,50 @@ function App() {
           <DialogTitle>{"Here is your Insurance Pan"}</DialogTitle>
           <DialogContent>
               <DialogContentText>
-                  <table className="table table-bordered p-2">
-                    <thead>
-                      <tr className="table-active">
-                        <th scope="col"></th>
-                        {combination.map((value,index) => (
-                             <th scope="col" key={index}>{value}</th>
-                        ))}
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <th scope="row">Base Rate</th>
-                        {baseRates.map((value, index) => (
-                          <td key={index}>{value}</td>
-                        ))}
-                      </tr>
-                      <tr>
-                        <th scope="row">Floater Discount</th>
-                        {floaterDiscount.map((value, index) => (
-                            <td key={index}>{value}%</td>
-                        ))}
-                      </tr>
-                      <tr>
-                        <th scope="row">Discounted Rate</th>
-                        {discountRate.map((value,index) => (
-                          <td key={index}>{value}</td>
-                        ))}
-                      </tr>
-                      <tr>
-                      <th scope="row">Total</th>
-                      <td>{total}</td>
-                      </tr>
-                    </tbody>
-                  </table>
+  
+                { submit ? (
+                   <div>
+                     <table className="table table-bordered p-2">
+                     <thead>
+                       <tr className="table-active">
+                         <th scope="col"></th>
+                         {combination.map((value,index) => (
+                              <th scope="col" key={index}>{value}</th>
+                         ))}
+                       </tr>
+                     </thead>
+                     <tbody>
+                       <tr>
+                         <th scope="row">Base Rate</th>
+                         {baseRates.map((value, index) => (
+                           <td key={index}>{value}</td>
+                         ))}
+                       </tr>
+                       <tr>
+                         <th scope="row">Floater Discount</th>
+                         {floaterDiscount.map((value, index) => (
+                             <td key={index}>{value}%</td>
+                         ))}
+                       </tr>
+                       <tr>
+                         <th scope="row">Discounted Rate</th>
+                         {discountRate.map((value,index) => (
+                           <td key={index}>{value}</td>
+                         ))}
+                       </tr>
+                       <tr>
+                       <th scope="row">Total</th>
+                       <td>{total}</td>
+                       </tr>
+                     </tbody>
+                   </table>
+                   </div>
+                ):(
+                  <div className="progress h-40" role="progressbar" aria-label="Example 20px high" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" >
+                       <div className="progress-bar progress-bar-striped progress-bar-animated w-100">Please Wait! You Plan is fetching....</div>
+                  </div>
+                    )}
+               
               </DialogContentText>
           </DialogContent>
           <DialogActions>
