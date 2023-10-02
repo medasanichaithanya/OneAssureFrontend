@@ -9,7 +9,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 
 function App() {
   const [adultCount, setAdultCount] = useState(0);
-  const [adultAges, setAdultAges] = useState(['', '', '']);
+  const [adultAges, setAdultAges] = useState(['', '']);
   const [childCount, setChildCount] = useState(0);
   const [childAges, setChildAges] = useState(['', '', '','']);
   const [cityTier,setCityTire] = useState('');
@@ -26,7 +26,7 @@ function App() {
   const handleAdultCount = (e) => {
     const adultValue = parseInt(e.target.value, 10);
     setAdultCount(adultValue)
-    setAdultAges(adultValue === 1 ? [''] : adultValue === 2 ? ['', ''] : ['', '', '']);
+    setAdultAges(adultValue === 1 ? ['']  : ['', '']);
   };
 
   const handleAdultAges = (index, value) => {
@@ -71,8 +71,8 @@ function App() {
   const handleSubmit = (event) => {
     event.preventDefault()
     setSubmit(false);
-    //  axios.get('https://onse-assure-backend-uoiz.vercel.app/fetch-premium',
-     axios.get('http://127.0.0.1:5000/fetch-premium',
+     axios.get('https://onse-assure-backend-uoiz.vercel.app/fetch-premium',
+    //  axios.get('http://127.0.0.1:5000/fetch-premium',
     {
       params: data_to_backend,
     })
@@ -85,7 +85,6 @@ function App() {
         setTotal(data.total)
         setOpen(true);
         const combination = generateLabels( adultCount + 'a,' + childCount + 'c')
-        console.log("comb",combination)
         setCombination(combination)
       }  
       })
@@ -130,7 +129,6 @@ function App() {
               <option selected value="">Select Count of Adults</option>
               <option value="1">1</option>
               <option value="2">2</option>
-              <option value="3">3</option>
             </select>
             { adultCount ? (adultAges.map((value, index) => (
               <>
