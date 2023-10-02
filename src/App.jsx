@@ -93,7 +93,6 @@ function App() {
 
   const handleToClose = () => {
     setOpen(false);
-    setSubmit(true);
   };
 
   const generateLabels = (value) => {
