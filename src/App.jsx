@@ -21,6 +21,7 @@ function App() {
   const [discountRate, setDiscountRate] = useState([]);
   const [total, setTotal] = useState(0);
   const [combination, setCombination] = useState([]);
+  const [submit,setSubmit] = useState(true);
 
   const handleAdultCount = (e) => {
     const adultValue = parseInt(e.target.value, 10);
@@ -58,7 +59,7 @@ function App() {
     setCover(parseInt(e.target.value))
   };
 
-  const data = {
+  const data_to_backend = {
     cover : cover,
     tier : cityTier,
     adult_ages : adultAges.join(','),
@@ -69,14 +70,14 @@ function App() {
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    console.log("inside the submit",data)
-     axios.get('https://onse-assure-backend-uoiz.vercel.app/fetch-premium',
+    setSubmit(false);
+    //  axios.get('https://onse-assure-backend-uoiz.vercel.app/fetch-premium',
+     axios.get('http://127.0.0.1:5000/fetch-premium',
     {
-      params: data,
+      params: data_to_backend,
     })
     .then((response) => {
       const data = response.data;
-      console.log("sds",data)
       if (data.status === 'SUCCESS'){
         setBaseRates(data.baseRates)
         setFloaterDiscount(data.floaterDiscount)
@@ -93,16 +94,14 @@ function App() {
 
   const handleToClose = () => {
     setOpen(false);
+    setSubmit(true);
   };
 
   const generateLabels = (value) => {
     const labels = [];
     const parts = value.split(',');
-
     for (const part of parts) {
       const [count, type] = part.split('');
-      console.log(type)
-
       for (let i = 1; i <= count; i++) {
           if (type === 'a'){
             const type = "Adult "
@@ -110,10 +109,8 @@ function App() {
           }
           else {
               const type = "Children "
-              labels.push(`${type}${i}`);
-              
-          }
-      
+              labels.push(`${type}${i}`);       
+          }  
       }
     }
 
@@ -201,7 +198,11 @@ function App() {
               <option value="17500000">7500000</option>
             </select>
             <div className='text-center'>
-              <button className="btn btn-primary btn-lg mt-4 text-center" type="submit">Checkout</button>
+              {submit ? ( <button type="submit" class="btn btn-primary btn-lg mt-3" >Checkout</button>)
+              :(<button class="btn btn-primary btn-lg mt-3" type="button" disabled>
+                  <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>&nbsp;&nbsp;
+                  <span class="sr-only">Processing...</span>
+                </button>)}
             </div>
         </form> 
       </div>
