@@ -72,7 +72,7 @@ function App() {
   const handleSubmit = (event) => {
     setOpen(true);
     event.preventDefault()
-     axios.get('https://onse-assure-backend-uoiz.vercel.app/fetch-premium',
+     axios.get('https://onse-assure-backend.vercel.app/fetch-premium',
     //  axios.get('http://127.0.0.1:5000/fetch-premium',
     {
       params: data_to_backend,
