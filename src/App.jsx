@@ -6,6 +6,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import 'bootstrap/dist/css/bootstrap.css';
+import './App.css'
 
 function App() {
   const [adultCount, setAdultCount] = useState(0);
@@ -117,13 +118,10 @@ function App() {
 
   return (
     <>
-      <div className = "d-flex justify-content-center vw-100 ">
-        <form className = "text-dark  mt-4 shadow-lg p-5 mb-4 bg-white rounded" onSubmit={handleSubmit}>
-            <div className='text-center'>
-              <img src="https://static.wixstatic.com/media/0fd5af_7e536c9b5c264f2483c076066e40ce56~mv2.png/v1/fill/w_150,h_36,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Logo.png" alt="logo"  width="40%"/>
-            </div>
-            <h2 className='mt-5 mb-3 text-center'> Health Insurance Plan Generator</h2>
-            <p>Select the number of adults in your family:</p>
+      <div className = "d-flex justify-content-center vw-100 main-content ">
+        <form className = "text-dark shadow-lg p-5 bg-white rounded" onSubmit={handleSubmit}>
+            <h2 className='mt-2 text-center'> Health Insurance Plan Generator</h2><br />
+            <p className='mt-3'>Select the number of adults in your family:</p>
             <select className = "form-select mb-2" aria-label = "Default select example" value={adultCount} onChange={handleAdultCount} required>
               <option selected value="">Select Count of Adults</option>
               <option value="1">1</option>
